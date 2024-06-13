@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, render_template
 from models import Tenista, db
 
 app = Flask(__name__)
@@ -21,8 +21,9 @@ def obtener_info_tenistas():
     return jsonify(tenistas_list)
 
 @app.route('/', methods=['GET'])
-def pagina_principal():
-        return send_from_directory('frontend/homepage', 'index.html')
+def homepage():
+    return render_template('home.html')
+
     
 if __name__ == '__main__':
     db.init_app(app)
