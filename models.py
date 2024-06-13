@@ -9,6 +9,11 @@ class Tenista():
     id = db.Column(db.Integer, primary_key=True)
     nombre_tenista = db.Column(db.String)
     puntuacion_global = db.Column(db.Integer, db.CheckConstraint('puntuacion_global >= 0 AND puntuacion_global <= 100'))
+    superficie_preferida = db.Column(db.Enum('Polvo de ladrillo', 'Cemento', 'Pasto', name='superficie_valida'))
+    nacionalidad = db.Column(db.String)
+    altura_cm = db.Column(db.Integer)
+    peso_kg = db.Column(db.Integer)
+
 
 class Torneo(db.Model):
     __tablename__ = 'torneos'
