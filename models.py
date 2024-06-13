@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Tenista():
+class Tenista(db.Model):
     __tablename__ = 'tenistas'
 
     id = db.Column(db.Integer, primary_key=True)
