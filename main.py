@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from models import Tenista, db
 
 app = Flask(__name__)
@@ -24,7 +24,26 @@ def obtener_info_tenistas():
 def homepage():
     return render_template('home.html')
 
-    
+@app.route('/obtener/tenista', methods=['POST'])  
+def obtener_tenista_por_nombre():
+    data = request.get_json()
+    nombre = data.get('nombre')
+    tenista = Tenista.query.filter_by(nombre_tenista=nombre).first()
+    if tenista:
+        return jsonify({'id': tenista.id})
+    else:
+        return jsonify({'error': 'Tenista no encontrado'}), 404
+
+@app.route('/tenistas/<id>')
+def mostrar_tenista(id):
+    tenista = Tenista.query.get(id)
+    if tenista:
+        return render_template('mostrar_tenista.html', tenista=tenista)
+    else:
+        return jsonify({'error': 'Tenista no encontrado'}), 404
+
+
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():

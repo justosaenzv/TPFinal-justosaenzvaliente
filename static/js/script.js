@@ -20,6 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById('submitBtn').addEventListener('click', function() {
-    var tenistaName = document.getElementById('tenistaInput').value;
-    console.log(tenistaName);
+    var nombre_tenista = document.getElementById('tenistaInput').value;
+    fetch('/obtener/tenista', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nombre: nombre_tenista }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.id) {
+            window.location.href = `/tenistas/${data.id}`;
+        } else {
+            alert('No se encontro el tenista que buscabas, fijate de no tener faltas de ortografia y de no ser asi puedes agregar tu tenista a nuestra lista.');
+        }
+    });
 });

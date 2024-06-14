@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Tenista</title>
+    <link rel="stylesheet" href="../static/css/mostrar_tenista.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Información del Tenista</h1>
+        <div class="info">
+            <span class="label">Nombre:</span>
+            <span class="value">{{ tenista.nombre_tenista }}</span>
+        </div>
+        <div class="info">
+            <span class="label">Puntuación Global:</span>
+            <span class="value">{{ tenista.puntuacion_global }}</span>
+        </div>
+        <div class="info">
+            <span class="label">Superficie Preferida:</span>
+            <span class="value">{{ tenista.superficie_preferida }}</span>
+        </div>
+        <div class="info">
+            <span class="label">Nacionalidad:</span>
+            <span class="value">{{ tenista.nacionalidad }}</span>
+        </div>
+        <div class="info">
+            <span class="label">Altura:</span>
+            <span class="value">{{ tenista.altura_cm }} cm</span>
+        </div>
+        <div class="info">
+            <span class="label">Peso:</span>
+            <span class="value">{{ tenista.peso_kg }} kg</span>
+        </div>
+        <a href="/" class="back-btn">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>
