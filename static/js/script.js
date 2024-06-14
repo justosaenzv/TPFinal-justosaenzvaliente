@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         })
         .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('Ocurrio un error:', error);
         });
+});
+
+document.getElementById('submitBtn').addEventListener('click', function() {
+    var tenistaName = document.getElementById('tenistaInput').value;
+    console.log(tenistaName);
 });
