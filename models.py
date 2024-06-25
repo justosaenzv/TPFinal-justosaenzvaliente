@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -40,3 +40,10 @@ class Torneo(db.Model):
     @cant_jugadores.setter
     def cant_jugadores(self, value):
         pass
+
+class Historial_torneos(db.Model):
+    __tablename__ = 'historial_torneos'
+    id = db.Column(db.Integer, primary_key=True)
+    fecha = db.Column(db.Date, nullable=False)
+    torneo_id = db.Column(db.Integer, db.ForeignKey('torneos.id'), nullable=False)
+    id_ganador = db.Column(db.Integer, db.ForeignKey('tenistas.id'), nullable=False)
