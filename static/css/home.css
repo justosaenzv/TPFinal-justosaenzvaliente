@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #006400; /* Dark green */
+    padding: 15px;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.navbar ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.search-container {
+    margin-bottom: 30px;
+}
+
+#search-input {
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #008cba; /* Blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #005f5f; /* Darker blue */
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container button:nth-child(2) {
+    background-color: #ffa500; /* Orange */
+}
+
+.button-container button:nth-child(2):hover {
+    background-color: #cc8400; /* Darker orange */
+}
+
+.button-container button:nth-child(3) {
+    background-color: #ff6347; /* Tomato */
+}
+
+.button-container button:nth-child(3):hover {
+    background-color: #cc5239; /* Darker tomato */
+}
+
+.button-container button:nth-child(4) {
+    background-color: #32cd32; /* Lime green */
+}
+
+.button-container button:nth-child(4):hover {
+    background-color: #228b22; /* Darker lime green */
+}
+
+footer {
+    background-color: #004aad;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

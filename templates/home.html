@@ -3,38 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenistas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #34db3f;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    <title>Tenis Home</title>
+    <link rel="stylesheet" href="../static/css/home.css">
 </head>
 <body>
-    
-    <h1>Tenistas</h1>
-    <input type="text" id="tenistaInput" placeholder="Ingresa el nombre de un jugador de tenis">
-    <button id="submitBtn">Buscar</button>
-    <ul id="lista_tenistas"></ul>
-    <script src="/static/js/script.js"></script>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/tenistas">Todos los Tenistas</a></li>
+            <li><a href="/torneos">Todos los Torneos</a></li>
+            <li><a href="/historial">Historial de Torneos</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>GrandSlam-Hub 2024</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar jugador...">
+            <button onclick="buscarJugador()">Buscar</button>
+        </div>
+        <div class="button-container">
+            <button onclick="window.location.href='/nuevo_jugador'">Crear Nuevo Jugador</button>
+            <button onclick="window.location.href='/nuevo_torneo'">Crear Nuevo Torneo</button>
+            <button onclick="window.location.href='/agregar_historial'">Agregar Torneo al Historial</button>
+            <button onclick="window.location.href='/simular_torneo'">Simular Nuevo Torneo</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 GrandSlam-Hub. Todos los derechos reservados. Prohibida la reproducción total o parcial sin autorización.</p>
+    </footer>
+    <script src="static/js/scripts.js"></script>
 </body>
 </html>
