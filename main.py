@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, request
-from models import Tenista, db, Torneo
+from models import Tenista, db, Torneo, Historial_torneos
 
 app = Flask(__name__)
 port = 5000
@@ -19,6 +19,10 @@ def mostrar_torneos():
     return render_template('lista_torneos.html')
 
 
+@app.route('/historial/')
+def mostrar_historial():
+    return render_template('lista_historial.html')
+
 @app.route('/tenistas/<id>')
 def mostrar_tenista(id):
     tenista = Tenista.query.get(id)
@@ -31,7 +35,6 @@ def mostrar_tenista(id):
 def obtener_info_tenistas():
     tenistas = Tenista.query.all()
     lista_tenistas = [{
-        'id': t.id,
         'nombre_tenista': t.nombre_tenista,
         'puntuacion_global': t.puntuacion_global,
         'superficie_preferida': t.superficie_preferida,
@@ -45,7 +48,6 @@ def obtener_info_tenistas():
 def obtener_info_torneos():
     torneos = Torneo.query.all()
     lista_torneos = [{
-        'id': t.id,
         'nombre_torneo': t.nombre_torneo,
         'categoria': t.categoria,
         'superficie': t.superficie,
@@ -53,6 +55,27 @@ def obtener_info_torneos():
     } for t in torneos]
     return jsonify(lista_torneos)
 
+@app.route('/obtener/historial', methods=['GET'])
+def obtener_historial():
+    historial = db.session.query(
+        Historial_torneos.fecha,
+        Tenista.nombre_tenista,
+        Torneo.nombre_torneo,
+        Torneo.categoria,
+        Torneo.superficie
+    ).join(Tenista, Historial_torneos.id_ganador == Tenista.id)\
+     .join(Torneo, Historial_torneos.torneo_id == Torneo.id)\
+     .all()
+
+    lista_historial = [{
+        'fecha': h.fecha,
+        'nombre_campeon': h.nombre_tenista,
+        'nombre_torneo': h.nombre_torneo,
+        'categoria': h.categoria,
+        'superficie': h.superficie
+    } for h in historial]
+
+    return jsonify(lista_historial)
 
 @app.route('/obtener/tenista', methods=['POST'])  
 def obtener_tenista_por_nombre():
@@ -64,6 +87,10 @@ def obtener_tenista_por_nombre():
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
 
+@app.route('/obtener/<int:tenista_id>/torneos_ganados', methods=['GET'])
+def obtener_torneos_ganados(tenista_id):
+    torneos_ganados = db.session.query(Historial_torneos).filter_by(id_ganador=tenista_id).count()
+    return jsonify({'tenista_id': tenista_id, 'torneos_ganados': torneos_ganados})
 
 
 
