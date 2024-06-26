@@ -1,10 +1,27 @@
 from flask import Flask, jsonify, render_template, request
-from models import Tenista, db
+from models import Tenista, db, Torneo
 
 app = Flask(__name__)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/tp_tenistas'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+@app.route('/', methods=['GET'])
+def homepage():
+    return render_template('home.html')
+
+@app.route('/tenistas/')
+def mostrar_tenistas():
+    return render_template('lista_tenistas.html')
+
+
+@app.route('/tenistas/<id>')
+def mostrar_tenista(id):
+    tenista = Tenista.query.get(id)
+    if tenista:
+        return render_template('mostrar_tenista.html', tenista=tenista)
+    else:
+        return jsonify({'error': 'Tenista no encontrado'}), 404
 
 @app.route('/obtener/tenistas', methods=['GET'])
 def obtener_info_tenistas():
@@ -20,9 +37,7 @@ def obtener_info_tenistas():
     } for t in tenistas]
     return jsonify(tenistas_list)
 
-@app.route('/', methods=['GET'])
-def homepage():
-    return render_template('home.html')
+
 
 @app.route('/obtener/tenista', methods=['POST'])  
 def obtener_tenista_por_nombre():
@@ -34,13 +49,6 @@ def obtener_tenista_por_nombre():
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
 
-@app.route('/tenistas/<id>')
-def mostrar_tenista(id):
-    tenista = Tenista.query.get(id)
-    if tenista:
-        return render_template('mostrar_tenista.html', tenista=tenista)
-    else:
-        return jsonify({'error': 'Tenista no encontrado'}), 404
 
 
 

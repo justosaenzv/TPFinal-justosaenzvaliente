@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenistas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #34db3f;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    <title>Lista de Tenistas</title>
+    <link rel="stylesheet" href="/static/css/lista_tenistas.css">
 </head>
 <body>
-    
-    <h1>Tenistas</h1>
-    <input type="text" id="tenistaInput" placeholder="Ingresa el nombre de un jugador de tenis">
-    <button id="submitBtn">Buscar</button>
-    <ul id="lista_tenistas"></ul>
-    <script src="/static/js/script.js"></script>
+    <header>
+        <h1>GrandSlam-Hub</h1>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/tenistas">Todos los Tenistas</a>
+        <a href="/torneos">Todos los Torneos</a>
+        <a href="/historial">Historial de Torneos</a>
+    </nav>
+    <div class="container">
+        <h2>Lista de Tenistas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Nacionalidad</th>
+                    <th>Puntuación Global</th>
+                    <th>Superficie Preferida</th>
+                    <th>Altura</th>
+                    <th>Peso</th>
+                </tr>
+            </thead>
+            <tbody id="lista_tenistas">
+                <!-- Los datos de los tenistas se insertarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <p>GrandSlam-Hub &copy; 2024. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../static/js/lista_tenistas.js"></script>
 </body>
 </html>
