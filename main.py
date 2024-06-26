@@ -14,6 +14,10 @@ def homepage():
 def mostrar_tenistas():
     return render_template('lista_tenistas.html')
 
+@app.route('/torneos/')
+def mostrar_torneos():
+    return render_template('lista_torneos.html')
+
 
 @app.route('/tenistas/<id>')
 def mostrar_tenista(id):
@@ -26,7 +30,7 @@ def mostrar_tenista(id):
 @app.route('/obtener/tenistas', methods=['GET'])
 def obtener_info_tenistas():
     tenistas = Tenista.query.all()
-    tenistas_list = [{
+    lista_tenistas = [{
         'id': t.id,
         'nombre_tenista': t.nombre_tenista,
         'puntuacion_global': t.puntuacion_global,
@@ -35,8 +39,19 @@ def obtener_info_tenistas():
         'altura_cm': t.altura_cm,
         'peso_kg': t.peso_kg
     } for t in tenistas]
-    return jsonify(tenistas_list)
+    return jsonify(lista_tenistas)
 
+@app.route('/obtener/torneos', methods=['GET'])
+def obtener_info_torneos():
+    torneos = Torneo.query.all()
+    lista_torneos = [{
+        'id': t.id,
+        'nombre_torneo': t.nombre_torneo,
+        'categoria': t.categoria,
+        'superficie': t.superficie,
+        'cant_jugadores': t.cant_jugadores
+    } for t in torneos]
+    return jsonify(lista_torneos)
 
 
 @app.route('/obtener/tenista', methods=['POST'])  
