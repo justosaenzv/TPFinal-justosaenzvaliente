@@ -1,51 +1,110 @@
+/* Reset de estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    height: 100vh;
-}
-.container {
-    max-width: 600px;
-    margin: auto;
-    margin-top: 5%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-h1 {
-    color: #222;
-    text-align: center;
-}
-.info {
-    margin-bottom: 20px;
-}
-.label {
-    font-weight: bold;
-    color: #222;
-}
-.value {
-    margin-left: 10px;
+    background-color: #f2f2f2;
     color: #333;
 }
-.back-btn {
-    position: relative;
-    display: block;
-    width: 70%;
-    margin: auto;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+.container {
+    width: 80%;
+    max-width: 1000px; /* Ajuste el ancho máximo del contenedor principal */
+    margin: 0 auto;
+    padding: 20px;
 }
+
+.header {
+    background-color: #3a7ca5;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navbar {
+    background-color: #1f4f77;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+.navbar ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
+.main {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.tenista-info {
+    background-color: white;
+    padding: 20px; /* Ajuste el padding para hacer el artículo un poco más alto */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    font-size: 18px; /* Aumente el tamaño de la letra dentro del artículo */
+}
+
+.tenista-info h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.info {
+    margin-bottom: 15px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.value {
+    margin-left: 10px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1f4f77;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
 .back-btn:hover {
-    background-color: #0056b3;
+    background-color: #3a7ca5;
+}
+
+.footer {
+    background-color: #1f4f77;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

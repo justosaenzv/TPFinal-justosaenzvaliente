@@ -27,7 +27,16 @@ def mostrar_historial():
 def mostrar_tenista(id):
     tenista = Tenista.query.get(id)
     if tenista:
-        return render_template('mostrar_tenista.html', tenista=tenista)
+        cantidad_torneos_ganados = Historial_torneos.query.filter_by(id_ganador=tenista.id).count()
+        info_tenista = {'nombre_tenista': tenista.nombre_tenista,
+        'puntuacion_global': tenista.puntuacion_global,
+        'superficie_preferida': tenista.superficie_preferida,
+        'nacionalidad': tenista.nacionalidad,
+        'altura_cm': tenista.altura_cm,
+        'peso_kg': tenista.peso_kg,
+        'cant_torneos_ganados': cantidad_torneos_ganados
+    }
+        return render_template('mostrar_tenista.html', tenista=info_tenista)
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
 
@@ -77,7 +86,7 @@ def obtener_historial():
 
     return jsonify(lista_historial)
 
-@app.route('/obtener/tenista', methods=['POST'])  
+@app.route('/obtener/idtenista', methods=['POST'])
 def obtener_tenista_por_nombre():
     data = request.get_json()
     nombre = data.get('nombre')
@@ -86,12 +95,6 @@ def obtener_tenista_por_nombre():
         return jsonify({'id': tenista.id})
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
-
-@app.route('/obtener/<int:tenista_id>/torneos_ganados', methods=['GET'])
-def obtener_torneos_ganados(tenista_id):
-    torneos_ganados = db.session.query(Historial_torneos).filter_by(id_ganador=tenista_id).count()
-    return jsonify({'tenista_id': tenista_id, 'torneos_ganados': torneos_ganados})
-
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 document.getElementById('submitBtn').addEventListener('click', function() {
     var nombre_tenista = document.getElementById('tenistaInput').value;
-    fetch('/obtener/tenista', {
+    fetch('/obtener/idtenista', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
