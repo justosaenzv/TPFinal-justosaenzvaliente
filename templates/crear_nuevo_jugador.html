@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Jugador</title>
+    <link rel="stylesheet" href="../static/css/crear_nuevo_jugador.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Nuevo Jugador</h1>
+        <form action="/crear-jugador" method="post">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flash-messages" id="flash-messages">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre_tenista" required>
+            </div>
+            <div class="form-group">
+                <label for="nacionalidad">Nacionalidad:</label>
+                <input type="text" id="nacionalidad" name="nacionalidad" required>
+            </div>
+            <div class="form-group">
+                <label for="puntuacion_global">Puntuación Global:</label>
+                <input type="number" id="puntuacion_global" name="puntuacion_global" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="superficie_preferida">Superficie Preferida:</label>
+                <select id="superficie_preferida" name="superficie_preferida" required>
+                    <option value="Polvo de ladrillo">Polvo de ladrillo</option>
+                    <option value="Cemento">Cemento</option>
+                    <option value="Pasto">Pasto</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="altura_cm">Altura (cm):</label>
+                <input type="number" id="altura_cm" name="altura_cm" required>
+            </div>
+            <div class="form-group">
+                <label for="peso_kg">Peso (kg):</label>
+                <input type="number" id="peso_kg" name="peso_kg" required>
+            </div>
+            <button type="submit">Crear Jugador</button>
+        </form>
+        <a href="/" class="back-btn">Volver a la Página Principal</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const flashMessages = document.getElementById('flash-messages');
+          if (flashMessages) {
+            setTimeout(function() {
+              flashMessages.style.display = 'none';
+            }, 10000);
+          }
+        });
+      </script>
+</body>
+</html>

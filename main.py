@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from models import Tenista, db, Torneo, Historial_torneos
 
 app = Flask(__name__)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/tp_tenistas'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'some_secret_key'
 
 @app.route('/', methods=['GET'])
 def homepage():
@@ -96,6 +97,37 @@ def obtener_tenista_por_nombre():
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
 
+@app.route('/crear-jugador', methods=['GET'])
+def mostrar_formulario_jugador():
+    return render_template('crear_nuevo_jugador.html')
+
+
+@app.route('/crear-jugador', methods=['POST'])
+def crear_jugador():
+    nombre_tenista = request.form['nombre_tenista']
+    nacionalidad = request.form['nacionalidad']
+    puntuacion_global = request.form['puntuacion_global']
+    superficie_preferida = request.form['superficie_preferida']
+    altura_cm = request.form['altura_cm']
+    peso_kg = request.form['peso_kg']
+
+    if not (0 <= int(puntuacion_global) <= 100):
+        flash('La puntuación global debe estar entre 0 y 100.')
+        return redirect(url_for('mostrar_formulario_jugador'))
+
+    nuevo_tenista = Tenista(
+        nombre_tenista=nombre_tenista,
+        nacionalidad=nacionalidad,
+        puntuacion_global=puntuacion_global,
+        superficie_preferida=superficie_preferida,
+        altura_cm=altura_cm,
+        peso_kg=peso_kg
+    )
+
+    db.session.add(nuevo_tenista)
+    db.session.commit()
+    flash('Nuevo jugador creado exitosamente!')
+    return redirect(url_for('mostrar_formulario_jugador'))
 
 if __name__ == '__main__':
     db.init_app(app)
