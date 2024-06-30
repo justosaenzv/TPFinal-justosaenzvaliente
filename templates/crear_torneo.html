@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Torneo</title>
+    <link rel="stylesheet" href="../static/css/formulario_crear.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Torneo</h1>
+        <form action="/crear-torneo" method="post">
+            <label for="nombre_torneo">Nombre del Torneo:</label>
+            <input type="text" id="nombre_torneo" name="nombre_torneo" required>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="Grand Slam">Grand Slam</option>
+                <option value="Master 1000">Master 1000</option>
+                <option value="ATP 500">ATP 500</option>
+                <option value="ATP 250">ATP 250</option>
+            </select>
+            <label for="superficie">Superficie:</label>
+            <select id="superficie" name="superficie" required>
+                <option value="Polvo de ladrillo">Polvo de ladrillo</option>
+                <option value="Cemento">Cemento</option>
+                <option value="Pasto">Pasto</option>
+            </select>
+            <button type="submit">Crear Torneo</button>
+        </form>
+    </div>
+    {% if success %}
+    <script>
+        alert('¡El torneo se agregó exitosamente a nuestra lista!');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 500);
+    </script>
+    {% endif %}
+</body>
+</html>

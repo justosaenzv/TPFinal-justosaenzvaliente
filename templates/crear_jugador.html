@@ -4,21 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nuevo Jugador</title>
-    <link rel="stylesheet" href="../static/css/crear_nuevo_jugador.css">
+    <link rel="stylesheet" href="../static/css/formulario_crear.css">
 </head>
 <body>
     <div class="container">
         <h1>Crear Nuevo Jugador</h1>
         <form action="/crear-jugador" method="post">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul class="flash-messages" id="flash-messages">
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre_tenista" required>
@@ -51,15 +42,11 @@
         </form>
         <a href="/" class="back-btn">Volver a la Página Principal</a>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          const flashMessages = document.getElementById('flash-messages');
-          if (flashMessages) {
-            setTimeout(function() {
-              flashMessages.style.display = 'none';
-            }, 10000);
-          }
-        });
-      </script>
+    {% if success %}
+        <script>
+            alert('¡El jugador se agregó exitosamente a nuestra lista!');
+            window.location.href = '/';
+        </script>
+    {% endif %}
 </body>
 </html>

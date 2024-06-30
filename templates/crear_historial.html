@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Torneo al Historial</title>
+    <link rel="stylesheet" href="../static/css/formulario_crear.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Torneo al Historial</h1>
+        <form action="/crear-historial-torneo" method="post">
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="torneo">Torneo:</label>
+                <select id="torneo" name="torneo" required>
+                    {% for torneo in torneos %}
+                        <option value="{{ torneo.id }}">{{ torneo.nombre_torneo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jugador_ganador">Jugador Ganador:</label>
+                <select id="jugador_ganador" name="jugador_ganador" required>
+                    {% for jugador in jugadores %}
+                        <option value="{{ jugador.id }}">{{ jugador.nombre_tenista }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit">Agregar Torneo al Historial</button>
+        </form>
+        <a href="/" class="back-btn">Volver a la Página Principal</a>
+    </div>
+    {% if success %}
+    <script>
+        alert('¡El jugador se agregó exitosamente a nuestra lista!');
+        window.location.href = '/';
+    </script>
+{% endif %}
+</body>
+</html>
