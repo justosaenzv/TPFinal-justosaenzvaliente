@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del Torneo</title>
+    <link rel="stylesheet" href="/static/css/mostrar_campeon.css">
+</head>
+<body>
+    <div class="container">
+        <div class="trophy">
+            🏆
+        </div>
+        <h1>¡Felicitaciones al Campeón!</h1>
+        <p>El ganador del torneo <strong>{{ torneo.nombre_torneo }}</strong> es <strong>{{ ganador.nombre_tenista }}</strong>.</p>
+        <form action="/agregar-historial" method="post">
+            <input type="hidden" name="torneo_id" value="{{ torneo.id }}">
+            <input type="hidden" name="id_ganador" value="{{ ganador.id }}">
+            <input type="hidden" name="fecha" value="{{ fecha }}">
+            <button type="submit" class="btn">Agregar al Historial</button>
+        </form>
+        <a href="/" class="back-btn">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>

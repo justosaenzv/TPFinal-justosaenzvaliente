@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Jugadores</title>
+    <link rel="stylesheet" href="/static/css/seleccionar.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Seleccionar Jugadores</h1>
+        <form action="/seleccionar-jugadores/{{ torneo.id }}" method="post">
+            <p>Selecciona {{ torneo.cant_jugadores }} jugadores para el torneo {{ torneo.nombre_torneo }}</p>
+            <div class="jugadores-lista">
+                {% for jugador in jugadores %}
+                <label class="jugador-item">
+                    <input type="checkbox" name="jugadores_ids" value="{{ jugador.id }}">
+                    <span class="jugador-nombre">{{ jugador.nombre_tenista }}</span>
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit">Simular Torneo</button>
+        </form>
+        <a href="/" class="back-btn">Volver a la Página Principal</a>
+    </div>
+
+    {% if error_cant_jugadores %}
+    <script>
+        alert(`Recuerda que los GrandSlams se juegan de a 16 personas, los Masters 1000 de a 8, los ATP 500 de a 4 y los ATP 250 de a 2. Ingrese la cantidad correcta de jugadores.`);
+    </script>
+    {% endif %}
+
+</body>
+</html>

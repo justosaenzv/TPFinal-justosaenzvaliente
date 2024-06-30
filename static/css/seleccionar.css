@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form p {
+    font-size: 16px;
+    color: #666;
+}
+
+.jugadores-lista {
+    margin-top: 10px;
+}
+
+.jugador-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Para alinear elementos a los extremos */
+    padding: 10px;
+    background-color: #f9f9f9; /* Color de fondo */
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.jugador-nombre {
+    font-size: 18px;
+    color: #333; /* Color de texto */
+    margin-right: 10px; /* Espacio entre nombre y checkbox */
+}
+
+.jugador-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}

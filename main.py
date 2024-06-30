@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from models import Tenista, db, Torneo, Historial_torneos
 from datetime import datetime
+import random
 
 app = Flask(__name__)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/tp_tenistas'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 @app.route('/', methods=['GET'])
 def homepage():
@@ -167,10 +169,65 @@ def crear_historial_torneo():
     
     return render_template('crear_historial.html', success=False, torneos=Torneo.query.all(), jugadores=Tenista.query.all())
 
-@app.route('/')
-def index():
-    # Lógica para mostrar la página principal
-    return render_template('index.html')
+@app.route('/simular-torneo', methods=['GET', 'POST'])
+def seleccionar_torneo():
+    if request.method == 'POST':
+        torneo_id = request.form['torneo']
+        return redirect(url_for('seleccionar_jugadores', torneo_id=torneo_id, error_cant_jugadores=False))
+
+    torneos = Torneo.query.all()
+    return render_template('seleccionar_torneo.html', torneos=torneos)
+
+@app.route('/seleccionar-jugadores/<int:torneo_id>', methods=['GET', 'POST'])
+def seleccionar_jugadores(torneo_id):
+    torneo = Torneo.query.get(torneo_id)
+    jugadores = Tenista.query.all()
+    if request.method == 'POST':
+        jugadores_ids = request.form.getlist('jugadores_ids')
+        return redirect(url_for('mostrar_campeon', torneo_id=torneo_id, jugadores_ids=','.join(jugadores_ids)))
+
+    return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=jugadores, error_cant_jugadores=False)
+
+
+@app.route('/agregar-historial', methods=['POST'])
+def agregar_historial():
+    torneo_id = request.form['torneo_id']
+    id_ganador = request.form['id_ganador']
+    fecha = datetime.now().date()
+
+    nuevo_historial = Historial_torneos(
+        torneo_id=torneo_id,
+        id_ganador=id_ganador,
+        fecha=fecha
+    )
+    db.session.add(nuevo_historial)
+    db.session.commit()
+
+    return redirect('/')
+
+
+@app.route('/campeon/<int:torneo_id>/<jugadores_ids>')
+def mostrar_campeon(torneo_id,jugadores_ids):
+
+    torneo = Torneo.query.get(torneo_id)
+    jugadores_ids = jugadores_ids.split(',')
+    if len(jugadores_ids) != torneo.cant_jugadores:
+        return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=Tenista.query.all(), error_cant_jugadores=True)
+    lista_jugadores = []
+    for id_jugador in jugadores_ids:
+        jugador = Tenista.query.get(int(id_jugador))
+        lista_jugadores.append(jugador)
+        
+    puntuaciones = []
+    for jugador in lista_jugadores:
+        puntuacion = random.random() * jugador.puntuacion_global
+        if jugador.superficie_preferida == torneo.superficie:
+            puntuacion *= 1.20
+        puntuaciones.append((jugador, puntuacion))
+
+    ganador = max(puntuaciones, key=lambda x: x[1])[0]
+    
+    return render_template('mostrar_campeon.html', ganador=ganador, torneo=torneo)
 
 
 if __name__ == '__main__':
