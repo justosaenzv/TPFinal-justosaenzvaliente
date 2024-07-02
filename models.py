@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -37,9 +36,6 @@ class Torneo(db.Model):
         else:
             return 0
 
-    @cant_jugadores.setter
-    def cant_jugadores(self, value):
-        pass
 
 class Historial_torneos(db.Model):
     __tablename__ = 'historial_torneos'
