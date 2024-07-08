@@ -10,12 +10,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 @app.route('/', methods=['GET'])
-def homepage():
-    return render_template('home.html')
+def pagina_inicio():
+    return render_template('index.html')
+
 
 @app.route('/tenistas/')
 def mostrar_tenistas():
     return render_template('lista_tenistas.html')
+
 
 @app.route('/torneos/')
 def mostrar_torneos():
@@ -26,22 +28,25 @@ def mostrar_torneos():
 def mostrar_historial():
     return render_template('lista_historial.html')
 
+
 @app.route('/tenistas/<id>')
 def mostrar_tenista(id):
     tenista = Tenista.query.get(id)
     if tenista:
         cantidad_torneos_ganados = Historial_torneos.query.filter_by(id_ganador=tenista.id).count()
-        info_tenista = {'nombre_tenista': tenista.nombre_tenista,
+        info_tenista = {
+        'nombre_tenista': tenista.nombre_tenista,
         'puntuacion_global': tenista.puntuacion_global,
         'superficie_preferida': tenista.superficie_preferida,
         'nacionalidad': tenista.nacionalidad,
         'altura_cm': tenista.altura_cm,
         'peso_kg': tenista.peso_kg,
         'cant_torneos_ganados': cantidad_torneos_ganados
-    }
+        }
         return render_template('mostrar_tenista.html', tenista=info_tenista)
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
+
 
 @app.route('/obtener/tenistas', methods=['GET'])
 def obtener_info_tenistas():
@@ -56,6 +61,7 @@ def obtener_info_tenistas():
     } for t in tenistas]
     return jsonify(lista_tenistas)
 
+
 @app.route('/obtener/torneos', methods=['GET'])
 def obtener_info_torneos():
     torneos = Torneo.query.all()
@@ -67,6 +73,7 @@ def obtener_info_torneos():
     } for t in torneos]
     return jsonify(lista_torneos)
 
+
 @app.route('/obtener/historial', methods=['GET'])
 def obtener_historial():
     historial = db.session.query(
@@ -77,7 +84,7 @@ def obtener_historial():
         Torneo.superficie
     ).join(Tenista, Historial_torneos.id_ganador == Tenista.id)\
      .join(Torneo, Historial_torneos.torneo_id == Torneo.id)\
-     .all()
+     .order_by(Historial_torneos.fecha.desc()).all()
 
     lista_historial = [{
         'fecha': h.fecha,
@@ -99,6 +106,7 @@ def obtener_tenista_por_nombre():
     else:
         return jsonify({'error': 'Tenista no encontrado'}), 404
 
+
 @app.route('/crear-jugador', methods=['GET', 'POST'])
 def crear_jugador():
     if request.method == 'POST':
@@ -108,10 +116,6 @@ def crear_jugador():
         superficie_preferida = request.form['superficie_preferida']
         altura_cm = request.form['altura_cm']
         peso_kg = request.form['peso_kg']
-
-        if not (0 <= int(puntuacion_global) <= 100):
-            flash('La puntuación global debe estar entre 0 y 100.')
-            return redirect(url_for('crear_jugador'))
 
         nuevo_tenista = Tenista(
             nombre_tenista=nombre_tenista,
@@ -127,7 +131,8 @@ def crear_jugador():
         
         return render_template('crear_jugador.html', success=True)
     
-    return render_template('crear_jugador.html', success=False)
+    return render_template('crear_jugador.html')
+
 
 @app.route('/crear-torneo', methods=['GET', 'POST'])
 def crear_torneo():
@@ -148,6 +153,7 @@ def crear_torneo():
     
     return render_template('crear_torneo.html', success=False)
 
+
 @app.route('/crear-historial-torneo', methods=['GET', 'POST'])
 def crear_historial_torneo():
     if request.method == 'POST':
@@ -167,29 +173,34 @@ def crear_historial_torneo():
         
         return render_template('crear_historial.html', success=True, torneos=Torneo.query.all(), jugadores=Tenista.query.all())
     
-    return render_template('crear_historial.html', success=False, torneos=Torneo.query.all(), jugadores=Tenista.query.all())
+    return render_template('crear_historial.html', torneos=Torneo.query.all(), jugadores=Tenista.query.all())
+
 
 @app.route('/simular-torneo', methods=['GET', 'POST'])
 def seleccionar_torneo():
     if request.method == 'POST':
         torneo_id = request.form['torneo']
-        return redirect(url_for('seleccionar_jugadores', torneo_id=torneo_id, error_cant_jugadores=False))
+        return redirect(url_for('seleccionar_jugadores', torneo_id=int(torneo_id)))
 
     torneos = Torneo.query.all()
     return render_template('seleccionar_torneo.html', torneos=torneos)
 
-@app.route('/seleccionar-jugadores/<int:torneo_id>', methods=['GET', 'POST'])
+
+@app.route('/seleccionar-jugadores/<int:torneo_id>/', methods=['GET', 'POST'])
 def seleccionar_jugadores(torneo_id):
     torneo = Torneo.query.get(torneo_id)
     jugadores = Tenista.query.all()
     if request.method == 'POST':
         jugadores_ids = request.form.getlist('jugadores_ids')
-        return redirect(url_for('mostrar_campeon', torneo_id=torneo_id, jugadores_ids=','.join(jugadores_ids)))
+        if len(jugadores_ids) != torneo.cant_jugadores:
+            return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=jugadores, error_cant_ids=True)
+        else:
+            return redirect(url_for('mostrar_campeon', torneo_id=torneo_id, jugadores_ids=','.join(jugadores_ids)))
 
-    return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=jugadores, error_cant_jugadores=False)
+    return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=jugadores)
 
 
-@app.route('/agregar-historial', methods=['POST'])
+@app.route('/agregar-historial/', methods=['POST'])
 def agregar_historial():
     torneo_id = request.form['torneo_id']
     id_ganador = request.form['id_ganador']
@@ -203,7 +214,7 @@ def agregar_historial():
     db.session.add(nuevo_historial)
     db.session.commit()
 
-    return redirect('/')
+    return render_template('index.html', historial_agregado=True)
 
 
 @app.route('/campeon/<int:torneo_id>/<jugadores_ids>')
@@ -211,8 +222,6 @@ def mostrar_campeon(torneo_id,jugadores_ids):
 
     torneo = Torneo.query.get(torneo_id)
     jugadores_ids = jugadores_ids.split(',')
-    if len(jugadores_ids) != torneo.cant_jugadores:
-        return render_template('seleccionar_jugadores.html', torneo=torneo, jugadores=Tenista.query.all(), error_cant_jugadores=True)
     lista_jugadores = []
     for id_jugador in jugadores_ids:
         jugador = Tenista.query.get(int(id_jugador))
