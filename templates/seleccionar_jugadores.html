@@ -24,9 +24,9 @@
         <a href="/" class="back-btn">Volver a la Página Principal</a>
     </div>
 
-    {% if error_cant_jugadores %}
+    {% if error_cant_ids %}
     <script>
-        alert(`Recuerda que los GrandSlams se juegan de a 16 personas, los Masters 1000 de a 8, los ATP 500 de a 4 y los ATP 250 de a 2. Ingrese la cantidad correcta de jugadores.`);
+        alert(`Debes ingresar la cantidad correcta de jugadores.`);
     </script>
     {% endif %}
 
