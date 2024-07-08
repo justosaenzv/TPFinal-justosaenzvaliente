@@ -30,6 +30,11 @@
     <footer>
         <p>&copy; 2024 GrandSlam-Hub. Todos los derechos reservados. Prohibida la reproducción total o parcial sin autorización.</p>
     </footer>
-    <script src="../static/js/home.js"></script>
+    <script src="/static/js/home.js"></script>
+    {% if historial_agregado %}
+    <script>
+        alert(`El torneo se agrego exitosamente a nuestra lista historial de torneos!`);
+    </script>
+    {% endif %}
 </body>
 </html>
