@@ -1,11 +1,9 @@
-/* Reset de estilos básicos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
@@ -14,7 +12,7 @@ body {
 
 .container {
     width: 80%;
-    max-width: 1000px; /* Ajuste el ancho máximo del contenedor principal */
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -61,11 +59,12 @@ body {
 
 .tenista-info {
     background-color: white;
-    padding: 20px; /* Ajuste el padding para hacer el artículo un poco más alto */
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     margin-bottom: 20px;
-    font-size: 18px; /* Aumente el tamaño de la letra dentro del artículo */
+    font-size: large;
+    margin: 30px auto 10px;
 }
 
 .tenista-info h1 {
@@ -79,6 +78,7 @@ body {
 
 .label {
     font-weight: bold;
+    margin-left: 10px;
 }
 
 .value {
@@ -107,4 +107,8 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    height: 12vh;
+    font-size: large;
 }
