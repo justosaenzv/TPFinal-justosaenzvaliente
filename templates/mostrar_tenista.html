@@ -8,56 +8,55 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <ul>
-                    <li><a href="/tenistas">Todos los Tenistas</a></li>
-                    <li><a href="/torneos">Todos los Torneos</a></li>
-                    <li><a href="/historial">Historial de Torneos</a></li>
-                </ul>
-            </div>
+            <nav class="navbar">
+                <div class="container">
+                    <ul>
+                        <li><a href="/tenistas">Todos los Tenistas</a></li>
+                        <li><a href="/torneos">Todos los Torneos</a></li>
+                        <li><a href="/historial">Historial de Torneos</a></li>
+                    </ul>
+                </div>
+
         </nav>
     </header>
 
     <main class="container">
         <article class="tenista-info">
             <h1>Información del Tenista</h1>
-            <div class="info">
+            <p class="info">
                 <span class="label">Nombre:</span>
                 <span class="value">{{ tenista.nombre_tenista }}</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Puntuación Global:</span>
                 <span class="value">{{ tenista.puntuacion_global }}</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Superficie Preferida:</span>
                 <span class="value">{{ tenista.superficie_preferida }}</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Nacionalidad:</span>
                 <span class="value">{{ tenista.nacionalidad }}</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Altura:</span>
                 <span class="value">{{ tenista.altura_cm }} cm</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Peso:</span>
                 <span class="value">{{ tenista.peso_kg }} kg</span>
-            </div>
-            <div class="info">
+            </p>
+            <p class="info">
                 <span class="label">Cantidad de Torneos Ganados:</span>
                 <span class="value">{{ tenista.cant_torneos_ganados }}</span>
-            </div>
+            </p>
         </article>
         <a href="/" class="back-btn">Volver a la Página Principal</a>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 GrandSlam-Hub. Todos los derechos reservados.</p>
-        </div>
+        <p>&copy; 2024 GrandSlam-Hub. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
