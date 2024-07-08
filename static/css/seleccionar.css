@@ -35,17 +35,17 @@ form p {
 .jugador-item {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Para alinear elementos a los extremos */
+    justify-content: space-between;
     padding: 10px;
-    background-color: #f9f9f9; /* Color de fondo */
+    background-color: #f9f9f9;
     border-radius: 4px;
     margin-bottom: 10px;
 }
 
 .jugador-nombre {
     font-size: 18px;
-    color: #333; /* Color de texto */
-    margin-right: 10px; /* Espacio entre nombre y checkbox */
+    color: #333;
+    margin-right: 10px;
 }
 
 .jugador-item input[type="checkbox"] {
